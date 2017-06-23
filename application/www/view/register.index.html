@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>中国高等教育学会-注册中心</title>
+    <link rel="stylesheet" href="/static/css/base.css"/>
+    <link rel="stylesheet" href="/static/css/style-min.css"/>
+    <script src="/static/js/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="top_bg">
+        <div class="top"></div>
+    </div>
+
+    <div class="nav_bg">
+        <div class="nav">
+            <ul class="nav_item">
+                <li class="left"><a href="http://hie.eol.com.cn">网站首页</a><span>|</span></li>
+                <li class="left"><a href="conference.html">会议报名</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 主体-->
+    <div class="main">
+        <div class="main_top">
+            <span>欢迎注册</span>
+            <span class="right">已有账号？<a class="blue" href="conference.html">请登录</a></span>
+        </div>
+        <div class="cont">
+            <form action="{:url('/www/register/index')}" id="myForm">
+                <table class="tab_info">
+                    <tr>
+                        <td class="txt_name">用户名：</td>
+                        <td><input type="text" name="username" id="username" class="txt" placeholder="您的账户名和登录名"/></td>
+                    </tr>
+                    <tr>
+                        <td class="txt_name">设置密码：</td>
+                        <td><input type="password" name="password" id="password" class="txt" placeholder="建议至少两种字符组合"/></td>
+                    </tr>
+                    <tr>
+                        <td class="txt_name">确认密码：</td>
+                        <td><input type="password" name="re_password" id="re_password" class="txt" placeholder="请再次输入密码"/></td>
+                    </tr>
+                    <tr>
+                        <td class="txt_name">邮箱：</td>
+                        <td><input type="text" class="txt" name="email" id="email"  placeholder="建议使用常用邮箱"/></td>
+                    </tr>
+                    <tr>
+                        <td class="txt_name">中国0086：</td>
+                        <td><input type="text" name="mobile" id="mobile" class="txt" placeholder="建议使用常用手机"/></td>
+                    </tr>
+                    <tr>
+                        <td class="txt_name">手机验证码：</td>
+                        <td>
+                            <input type="text" name="code" id="code" class="txt" placeholder="请输入手机验证码"/>
+                        </td>
+                    </tr>
+                    <tr class="btn">
+                        <td colspan="2" class="last">
+                            <input class="save btn1" type="button" id="submit" value="注册" />
+                        </td>
+                    </tr>
+                </table>
+                <input class="getcode" type="button" onclick="getCode();" value="获取验证码"/>
+            </form>
+        </div>
+    </div>
+    <!-- 主体结束-->
+    <div class="copyright">
+        <div class="footer">
+            <div class="line_24">
+                <p><a href="http://hie.eol.com.cn/overview_12570/20150121/t20150121_993152.shtml">联系我们</a>｜相关链接：<a href="http://www.moe.edu.cn">中华人民共和国教育部</a></p>
+                <p>学会地址：北京市海淀区文慧园北路10号中教仪楼4层</p>
+                <p>联系电话：010-59893295　010-59893297　京ICP备10021028号</p>
+                <p>技术支持：<a href="http://www.eol.cn/">中国教育在线</a></p>
+            </div>
+            <div class="img_wx"><p align="center"><img src="/static/imgs/wx.jpg" width="72" height="72" /></p>
+                <p align="center">官方微信</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript" src="/static/layer/layer.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	
+<script type="text/javascript">
+<!--
+	jQuery.validator.addMethod(
+		"mobile",
+		function(value, element) {
+			var length = value.length;
+			var mobile = /^1[3|5|7|8][0-9]\d{4,8}$/;
+			return this.optional(element) || (length == 11 && mobile.test(value));
+		}, 
+		"请正确填写您的手机号码"
+	); 
+
+	$(document).ready(function() {
+		$("#submit").click(function(){
+			if(checkForm()){
+				var url = "{:url('/www/register/index')}";
+				var data = {
+					username:$("#username").val(),
+					password:$("#password").val(),
+					email:$("#email").val(),
+					mobile:$("#mobile").val(),
+					code:$("#code").val()
+				};
+				$.post(url,data,function(q){
+					if(200 != q.errno){
+						layer.alert(q.msg);
+					} else {
+						window.location.href=q.data;
+					}
+				})
+			} else {
+				//layer.alert("请重试~");
+			}
+		});
+
+	});
+	function checkForm(){
+		return $("#myForm").validate({
+			rules: {
+				username:{
+					required: true,
+					minlength: 1,
+					//maxlength:5
+				},
+				password:{
+					required: true,
+					minlength: 1
+				},
+				re_password: {
+					required: true,
+					minlength: 1,
+					equalTo: "#password"
+				},
+				email: {
+					required: true,
+					email: true
+				},
+				mobile:{
+					required: true,
+					mobile: true,
+					//remote:{
+					//	url:"{:url('/www/register/mobileisexits')}",
+					//	type:"post",
+					//	data:{
+					//		mobile:function() {
+					//			return $("#mobile").val();
+					//		}
+					//	},
+					//	dataFilter: function(data, type) {
+					//		if(200 != data.errno){
+					//			return true;
+					//		} else {
+					//			return false;
+					//		}
+					//	}
+					//}
+				},
+				code:{
+					required:true,
+					//remote:{
+					//	url:"{:url('/www/register/checkcode')}",
+					//	type:"post",
+					//	data:{
+					//		mobile:function() {
+					//			return $("#mobile").val();
+					//		},
+					//		code:function(){
+					//			return $("#code").val();
+					//		}
+					//	},
+					//	dataFilter: function(data, type) {
+					//		if(200 != data.errno){
+					//			return true;
+					//		} else {
+					//			return false;
+					//		}
+					//	}
+					//}
+				},
+				messages: {
+					username: {
+					required: "请输入用户名",
+					minlength: "用户名必需由两个字母组成"
+				},
+				password: {
+					required: "请输入密码",
+					minlength: "密码长度不能小于 5 个字母"
+				},
+				confirm_password: {
+					required: "请输入密码",
+					minlength: "密码长度不能小于 5 个字母",
+					equalTo: "两次密码输入不一致"
+				},
+				mobile: {
+					required: "请输入手机号",
+					mobile: "请输入正确的手机号码",
+					//remote: "该手机号码已经被注册"
+				},
+				code:{
+					required: "请输入短信验证码",
+					//remote: "短信验证码错误"
+				},
+				email: "请输入一个正确的邮箱",
+				}
+			}
+		}).form();
+	}
+
+	function getCode()
+	{
+		 var url = "{:url('/www/Register/getcode')}";
+		 var data = {mobile:$("#mobile").val()}
+		 $.post(url,data,function(q){
+			if(200 != q.errno){
+				layer.alert(q.msg);
+			}
+		 });
+	}
+//-->
+</script>
