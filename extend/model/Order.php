@@ -28,7 +28,7 @@ class Order extends Model
     public function getStatusAttr($value)
     {
         $status = ['未支付','已支付','待审核'];
-        return $status[$value];
+        return isset($status[$value]) ? $status[$value] : '';
     }
 
     /**
@@ -44,7 +44,7 @@ class Order extends Model
             'alipay'    => '支付宝',
             'weipay'    => '微信',
         ];
-        return $pay_way[$value];
+        return isset($pay_way[$value]) ? $pay_way[$value] : '';
     }
 }
 

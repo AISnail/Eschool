@@ -120,7 +120,7 @@ class BasicAdmin extends Controller {
         } else {
             $result['list'] = $db->select();
         }
-dd( get_class_methods($result['list'])) ; //TODO 这里有个坑，记得补一下
+
         if (false !== $this->_callback('_data_filter', $result['list']) && $isDisplay) {
             !empty($this->title) && $this->assign('title', $this->title);
             return $this->fetch('', $result);

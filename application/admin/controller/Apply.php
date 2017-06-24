@@ -19,20 +19,14 @@ class Apply extends BasicAdmin
     public $table = 'EschoolApply';
 
     public function index(){
-        $this->title = '报名列表';
+        $this->title = '报名详情';
         // 获取到所有GET参数
         $get = $this->request->get();
         // 实例Query对象
-        $db = MeetingModel::get(['status'=>'1']);
-        // 应用搜索条件
-        foreach (['apply_name'] as $key) {
-            if (isset($get[$key]) && $get[$key] !== '') {
-                $db->where($key, 'like', "%{$get[$key]}%");
-            }
+        if( empty($get['increment_id']) || empty($get['apply_id']) ){
+            return  "<script>window.location='#/meeting/index'</script>";
         }
 
-        // 实例化并显示
-        return parent::_list($db);
     }
 
     /**

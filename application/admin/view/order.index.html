@@ -35,7 +35,7 @@
         <th class='text-center'>联系电话</th>
         <th class='text-center'>支付方式</th>
         <th class='text-center'>支付金额</th>
-        <th class='text-center'>订单状态</th>
+        <th class='text-center'>会议状态</th>
         <th class='text-center'>创建时间</th>
         </tr>
         </thead>
@@ -45,13 +45,13 @@
             <td class='text-center'>{$vo.increment_id}</td>
             <td class='text-center'>{$vo.m_topic}</td>
             <td class='text-center'>
-                <?php $apply_name = $vo['apply_name'];
-                if( empty($apply_name) ){
-                    echo "<a href='/#/meeting/index?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>点击关联报名表</a>";
-                }else{
-                    echo "<button onclick=\"window.location.href='#/meeting/index';return false;\"  class='layui-btn layui-btn-small' data-title=".$apply_name."><i class='fa fa-calendar'></i>".$apply_name."</button>";
-                }
-                ?></td>
+<?php $apply_name = $vo['apply_name'];
+if( empty($apply_name) ){
+echo "<a href='/#//apply/assoc?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>点击关联报名表</a>";
+}else{
+echo "<button onclick=\"window.location.href='#/apply/index?increment_id=".$vo['increment_id']."&apply_id=".$vo['apply_id']."';return false; \"class='layui-btn layui-btn-small' data-title=".$apply_name."><i class='fa fa-calendar'></i>".$apply_name."</button>";
+}
+?></td>
             <td class='text-center'>{$vo.organ}</td>
             <td class='text-center'><a data-modal="/order/details.html?increment_id={$vo.increment_id}" href="javascript:void(0)">{$vo.status}</a></td>
             <td class='text-center'>{$vo.name}</td>
