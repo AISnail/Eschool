@@ -260,6 +260,11 @@ class Query
         return $this->connection->getLastSql();
     }
 
+    public function _sql()
+    {
+        return $this->getLastSql();
+    }
+
     /**
      * 执行数据库事务
      * @access public

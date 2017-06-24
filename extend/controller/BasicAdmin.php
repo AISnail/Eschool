@@ -65,7 +65,6 @@ class BasicAdmin extends Controller {
         $pkValue = $this->request->request($pk, isset($where[$pk]) ? $where[$pk] : (isset($extendData[$pk]) ? $extendData[$pk] : null));
         // 非POST请求, 获取数据并显示表单页面
 
-
         if (!$this->request->isPost()) {
             $vo = ($pkValue !== null) ? array_merge((array) $db->where($pk, $pkValue)->where($where)->find(), $extendData) : $extendData;
             if (false !== $this->_callback('_form_filter', $vo)) {
@@ -121,6 +120,7 @@ class BasicAdmin extends Controller {
         } else {
             $result['list'] = $db->select();
         }
+dd( get_class_methods($result['list'])) ; //TODO 这里有个坑，记得补一下
         if (false !== $this->_callback('_data_filter', $result['list']) && $isDisplay) {
             !empty($this->title) && $this->assign('title', $this->title);
             return $this->fetch('', $result);

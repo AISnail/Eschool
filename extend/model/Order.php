@@ -27,7 +27,7 @@ class Order extends Model
      */
     public function getStatusAttr($value)
     {
-        $status = ['未支付','支付','待审核'];
+        $status = ['未支付','已支付','待审核'];
         return $status[$value];
     }
 

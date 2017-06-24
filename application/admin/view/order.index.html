@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-xs-3">
             <div class="form-group">
-                <input type="text" name="m_topic" value="{$Think.get.m_topic|default=''}" placeholder="会议主题" class="input-sm form-control">
+                <input type="text" name="mobile" value="{$Think.get.mobile|default=''}" placeholder="联系电话" class="input-sm form-control">
             </div>
         </div>
 
@@ -26,40 +26,42 @@
     <input type="hidden" value="resort" name="action"/>
     <table class="table table-hover">
         <thead>
+        <th class='text-center'>订单编号</th>
         <th class='text-center'>会议主题</th>
         <th class='text-center'>表单详情</th>
         <th class='text-center'>创建机构</th>
         <th class='text-center'>订单状态</th>
+        <th class='text-center'>支付人姓名</th>
+        <th class='text-center'>联系电话</th>
         <th class='text-center'>支付方式</th>
-        <th class='text-center'>支付详情</th>
+        <th class='text-center'>支付金额</th>
         <th class='text-center'>订单状态</th>
         <th class='text-center'>创建时间</th>
         </tr>
         </thead>
         <tbody>
         {foreach $list as $key=>$vo}
-        <?php $org_name = \think\Db::name('SystemUser') ->where('id', $vo['o_id'])->value('organ');
-        ?>
         <tr>
+            <td class='text-center'>{$vo.increment_id}</td>
             <td class='text-center'>{$vo.m_topic}</td>
-            <td class='text-center nowrap'>
-                <?php $apply_name = \think\Db::name('EschoolApply')
-                                ->where('m_id', $vo['id'])
-                ->value('apply_name');
+            <td class='text-center'>
+                <?php $apply_name = $vo['apply_name'];
                 if( empty($apply_name) ){
-                    echo "<a href='/#/apply/assoc?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>点击关联报名表</a>";
+                    echo "<a href='/#/meeting/index?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>点击关联报名表</a>";
                 }else{
-                    echo "<button data-action='/apply/details?'  class='layui-btn layui-btn-small' data-title=".$apply_name."><i class='fa fa-calendar'></i>".$apply_name."</button>";
+                    echo "<button onclick=\"window.location.href='#/meeting/index';return false;\"  class='layui-btn layui-btn-small' data-title=".$apply_name."><i class='fa fa-calendar'></i>".$apply_name."</button>";
                 }
                 ?></td>
-            <td class='text-center'><?=$org_name;?></td>
-            <td class='text-center'>{$vo.start_time|date="Y-m-d H:i:s",###}</td>
-            <td class='text-center'>{$vo.end_time|date="Y-m-d H:i:s",###}</td>
-            <td class='text-center'>{$vo.apply_time|date="Y-m-d H:i:s",###}</td>
+            <td class='text-center'>{$vo.organ}</td>
+            <td class='text-center'><a data-modal="/order/details.html?increment_id={$vo.increment_id}" href="javascript:void(0)">{$vo.status}</a></td>
+            <td class='text-center'>{$vo.name}</td>
+            <td class='text-center'>{$vo.mobile}</td>
+            <td class='text-center'>{$vo.pay_way}</td>
+            <td class='text-center'>{$vo.pay_money}</td>
             <td class='text-center'>
                 {if $vo.m_status eq 0}
                 <span>已关闭</span>
-                {elseif $vo.status eq 1}
+                {elseif $vo.m_status eq 1}
                 <span style="color:#090">使用中</span>
                 {/if}
             </td>

@@ -1,0 +1,47 @@
+<form class="layui-box" style='padding:25px 30px 20px 0' action="__SELF__" data-auto="true" method="post">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单编号</label>
+            <div class="layui-unselect layui-form-radio layui-radio-disbaled layui-disabled"><span>{$vo.increment_id|default=""}</span></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-block">
+            <div class="layui-unselect layui-form-radio layui-radio-disbaled layui-disabled"><span>{$vo.create_time|default=""}</span></div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">支付金额</label>
+        <div class="layui-input-block">
+            <div class="layui-unselect layui-form-radio layui-radio-disbaled layui-disabled"><span style="color:#090">{$vo.pay_money|default=""}</span></div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作人员</label>
+        <div class="layui-input-block" style="width: 50%">
+            <input type="text" name="operation_name"  value="{$vo.operation_name|default=''}" autocomplete="off" class="layui-input" required="required" title="操作人员不能为空哦" placeholder="请在这里输入操作人员" >
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">订单状态</label>
+                <div class="form-group">
+                    <div class="col-md-9">
+                        <div class="mt-radio-inline" style="padding-bottom:0">
+                            <label class="layui-form-label">
+                                <input  type="radio"  name="status" <?=$vo['status'] == 1  ? 'checked' : ''?> value="1" > 支付
+                            </label>
+                            <label class="layui-form-label">
+                                <input  type="radio"  name="status" <?=$vo['status'] == 0  ? 'checked' : ''?> value="0" > 未支付
+                            </label>
+                        </div>
+                </div>
+            </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+<input name="increment_id" type="hidden" value="{$vo.increment_id}">
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type='submit'>保存数据</button>
+        <button class="layui-btn layui-btn-danger" type='button' data-confirm="确定要取消编辑吗？" data-close>取消编辑</button>
+    </div>
+</form>
