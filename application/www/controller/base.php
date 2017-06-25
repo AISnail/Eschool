@@ -52,4 +52,13 @@ class base extends Controller
 
     }
 
+	protected function baseMsgcode() {
+        $chars = '0123456789';
+        mt_srand((double) microtime() * 1000000 * getmypid());
+        $CheckCode = "";
+        while (strlen($CheckCode) < 6)
+            $CheckCode.=substr($chars, (mt_rand() % strlen($chars)), 1);
+        return $CheckCode;
+    }
+
 }
