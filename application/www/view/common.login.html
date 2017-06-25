@@ -1,0 +1,38 @@
+<div class="login">
+                        <p class="organame">会员登录</p>
+                        <div class="login_info">
+                            <label for="username">
+                                <span>用户名：</span><input id="username" class="txt" type="text"/>
+                            </label>
+                            <label for="userpwd">
+                                <span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span><input id="userpwd" class="txt" type="password"/>
+                            </label>
+                            <!--<label for="auto">
+                                <input type="checkbox" id="auto"/><i>下次自动登录</i>
+                            </label>-->
+                            <p>
+                                <input type="button" class="btn btn_login" value="登录"  onclick="doLogin()"/>
+                                <input type="submit" class="btn btn_reg" value="注册" onclick="{:url('/www/register/index')}"/>
+                            </p>
+                            <p class="forget"><a href="#">忘记密码</a></p>
+                        </div>
+                    </div>
+
+<script>
+  function doLogin()
+  {
+    var username = $("#username").val();
+    var password = $("#userpwd").val();
+    if('' != username || '' != password){
+      var url = "{:url('/www/login/doLogin')}";
+      var data = {username:username,password:password};
+      $.post(url,data,function(q){
+        if(200 != q.errno){
+          layer.alert(q.msg);
+        } else {
+          window.location.href=q.data;
+        }
+      },"json");
+    }
+  }
+</script>
