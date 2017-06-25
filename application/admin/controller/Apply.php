@@ -5,7 +5,8 @@ use controller\BasicAdmin;
 use service\DataService;
 use think\Db;
 use think\Request;
-use  app\admin\model\Meeting as MeetingModel;
+use model\Form as FormModel;
+
 
 /**
  * Apply
@@ -23,10 +24,50 @@ class Apply extends BasicAdmin
         // 获取到所有GET参数
         $get = $this->request->get();
         // 实例Query对象
-        if( empty($get['increment_id']) || empty($get['apply_id']) ){
+        if(  empty($get['increment_id']) ||
+             empty($get['apply_type'])   ||
+            !in_array($get['apply_type'],FormModel::returnForm())
+        ){
             return  "<script>window.location='#/meeting/index'</script>";
         }
-
+        $form  = new FormModel();
+        $table = $form->where([
+            'increment_id' =>   $get['increment_id'],
+            'apply_type'   =>   $get['apply_type'],
+        ])->find();
+dd(json_encode([
+    'master' => [
+        'danwei_name' => '北京大保健文化传媒',
+        'tx_address'  => '就是那里',
+        'lx_mobile'   => '110',
+        'zs_yd'       => '1',
+        'bz_sm'       => '这他妈还有备注'
+    ],
+    'slave' => [
+            [
+              'name' => '张三',
+                'sex' => '男',
+                'bm_zw' => '管道工',
+                'bg_dh' => '13121212121',
+                'mobile' => '13121212121',
+                'email' => '1@q.cn',
+            ],
+            [
+              'name' => '里斯',
+                'sex' => '男',
+                'bm_zw' => '管道工',
+                'bg_dh' => '13121212121',
+                'mobile' => '13121212121',
+                'email' => '1@q.cn',
+            ],
+    ],
+]));
+        $this->assign([
+            'form'  => dirname(__DIR__).DS.'view'.DS.$table['apply_type'].'.html',
+            'table' => $table['apply_json'],
+            'down'  => $table['down_path']
+        ]);
+        return view();
     }
 
     /**

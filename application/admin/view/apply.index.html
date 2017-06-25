@@ -1,73 +1,22 @@
 {extend name='extra@admin/content'}
 
+{block name='content'}
 
-{block name="content"}
-
-<!-- 表单搜索 开始 -->
-<form class="animated form-search" action="__SELF__" onsubmit="return false" method="get">
-
-    <div class="row">
-        <div class="col-xs-3">
-            <div class="form-group">
-                <input type="text" name="m_topic" value="{$Think.get.m_topic|default=''}" placeholder="会议主题" class="input-sm form-control">
-            </div>
-        </div>
-
-        <div class="col-xs-1">
-            <div class="form-group">
-                <button type="submit" class="btn btn-sm btn-white"><i class="fa fa-search"></i> 搜索</button>
-            </div>
-        </div>
+<!--右侧编辑区 开始-->
+<div class="panel panel-default ">
+    <div class="panel-heading ibox-title"><h5>表单详情</h5></div>
+    <div class="panel-body">
+        <?php !empty( $form ) && include ("$form");?>
     </div>
-</form>
-<!-- 表单搜索 结束 -->
+</div>
+<!--右侧编辑区 结束-->
 
-<form onsubmit="return false;" data-auto="" method="POST">
-    <input type="hidden" value="resort" name="action"/>
-    <table class="table table-hover">
-        <thead>
-        <th class='text-center'>会议主题</th>
-        <th class='text-center'>表单详情</th>
-        <th class='text-center'>创建机构</th>
-        <th class='text-center'>订单状态</th>
-        <th class='text-center'>支付方式</th>
-        <th class='text-center'>支付详情</th>
-        <th class='text-center'>订单状态</th>
-        <th class='text-center'>创建时间</th>
-        </tr>
-        </thead>
-        <tbody>
-        {foreach $list as $key=>$vo}
-        <?php $org_name = \think\Db::name('SystemUser') ->where('id', $vo['o_id'])->value('organ');
-        ?>
-        <tr>
-            <td class='text-center'>{$vo.m_topic}</td>
-            <td class='text-center'>
-                <?php $apply_name = \think\Db::name('EschoolApply')
-                                ->where('m_id', $vo['id'])
-                ->value('apply_name');
-                if( empty($apply_name) ){
-                    echo "<a href='/#/apply/assoc?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>点击关联报名表</a>";
-                }else{
-                echo "<button data-action='/apply/details'  class='layui-btn layui-btn-small' data-title=".$apply_name."><i class='fa fa-calendar'></i>".$apply_name."</button>";
-                }
-                ?></td>
-            <td class='text-center'><?=$org_name;?></td>
-            <td class='text-center'>{$vo.start_time|date="Y-m-d H:i:s",###}</td>
-            <td class='text-center'>{$vo.end_time|date="Y-m-d H:i:s",###}</td>
-            <td class='text-center'>{$vo.apply_time|date="Y-m-d H:i:s",###}</td>
-            <td class='text-center'>
-                {if $vo.m_status eq 0}
-                <span>已关闭</span>
-                {elseif $vo.status eq 1}
-                <span style="color:#090">使用中</span>
-                {/if}
-            </td>
-            <td class='text-center'>{$vo.create_time}</td>
-        </tr>
-        {/foreach}
-        </tbody>
-    </table>
-    {if isset($page)}<p>{$page}</p>{/if}
-</form>
+<?php if(!empty($down) && isset($down)):?>
+<div class="panel panel-default ">
+<div class="panel-heading ibox-title"><h5>下载附件</h5></div>
+<div class="panel-body">
+    <span class="fa fa-usb transition"><a href="<?=$down?>"> 点击下载附件</a></span>
+</div>
+</div>
+<?php endif;?>
 {/block}

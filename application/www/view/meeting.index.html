@@ -35,7 +35,7 @@
                         <?php if( !empty($organ_array) ):?>
                         <?php foreach( $organ_array as $organ_val ): ?>
                         <li <?=$organ_val['id'] == $organ_id ? 'class="curr"' : ''?> organ-id="<?=$organ_val['id']?>" >
-                                <span><?=$organ_val['name']?></span>
+                                <span><?=$organ_val['organ']?></span>
                                 <s></s>
                             </li>
                         <?php endforeach;?>
@@ -54,22 +54,19 @@
                             <span class="upload">单价</span>
                         </p>
                         <ul class="list">
-                            <li metting_id="1">
-                            <span class="title">
-                                <b>2016年高等教育学会得通知</b><br/>
-                                <span class="dark"><b>主办单位</b>：保健医学分会<b>&nbsp;2017-05-16&nbsp;05:37&nbsp;</b>开始报名</span>
-                            </span>
-                                <span class="date">￥1600.00</span>
+                            <?php if(isset($meeting_info) && !empty($meeting_info)):?>
+                            <?php foreach($meeting_info as $vo):?>
+                            <li metting_id="<?=$vo['id']?>">
+                                <span class="title">
+                                    <b><?=$vo['m_topic']?></b><br/>
+                                    <span class="dark"><b>主办单位</b>：保健医学分会<b>&nbsp;2017-05-16&nbsp;05:37&nbsp;</b>开始报名</span>
+                                </span>
                             </li>
-                            <li>
-                            <span class="title">
-                                <b>“全面提升质量管理水平，全面提高教学综合改革成效”专题报告会</b><br/>
-                                <span class="dark"><b>主办单位</b>：保卫学专业委员会<b>&nbsp;2017-05-16&nbsp;05:37&nbsp;</b>开始报名</span>
-                            </span>
-                                <span class="date">￥100.00</span>
-                            </li>
+                            <?php endforeach;?>
+                            <?php endif;?>
                         </ul>
                     </div>
+                    {$page}
                 </div>
             </div>
         </div>
@@ -85,7 +82,7 @@
                     <ul>
                         <?php if(!empty($hidden_organ)):?>
                         <?php foreach($hidden_organ as $hi_o_val):?>
-                            <li> <a href="/meeting/index/organ/<?=$hi_o_val['id']?>"><?=$hi_o_val['name']?> </a> <sup class="red"></sup></li>
+                            <li> <a href="/meeting/index/organ/<?=$hi_o_val['id']?>"><?=$hi_o_val['organ']?> </a> <sup class="red"></sup></li>
                         <?php endforeach;?>
                         <?php endif;?>
                     </ul>

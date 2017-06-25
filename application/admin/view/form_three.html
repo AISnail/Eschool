@@ -648,13 +648,13 @@
     <col width=100 span=6 style='width:75pt'>
     <tr height=24 style='mso-height-source:userset;height:18pt' id='r0'>
         <td colspan=2 id='tc0' height=24 class=x31 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;height:18pt;' >单位名称</td>
-        <td colspan=4 id='tc1' class=x31 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ></td>
+        <td colspan=4 id='tc1' class=x31 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ><?=isset($table['master']) ? $table['master']['danwei_name'] : ''?></td>
     </tr>
     <tr height=46 style='mso-height-source:userset;height:35pt' id='r1'>
         <td colspan=2 id='tc2' height=46 class=x31 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;height:35pt;' >通讯地址</td>
-        <td colspan=2 id='tc3' class=x31 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ></td>
+        <td colspan=2 id='tc3' class=x31 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ><?=isset($table['master']) ? $table['master']['tx_address'] : ''?></td>
         <td class=x21>联系人及电话</td>
-        <td class=x21></td>
+        <td class=x21><?=isset($table['master']) ? $table['master']['lx_mobile'] : ''?></td>
     </tr>
     <tr height=46 style='mso-height-source:userset;height:35pt' id='r2'>
         <td height=46 class=x22 style='height:35pt;' >姓名</td>
@@ -664,14 +664,19 @@
         <td class=x21>手机</td>
         <td class=x21>E-mail</td>
     </tr>
+    <?php if( isset($table['slave']) ):?>
+    <?php foreach( $table['slave'] as $vo ):?>
     <tr height=24 style='mso-height-source:userset;height:18pt' id='r3'>
-        <td height=24 class=x23 style='height:18pt;' ></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
+        <td height=24 class=x23 style='height:18pt;' ><?=$vo['name']?></td>
+        <td class=x24><?=$vo['sex']?></td>
+        <td class=x24><?=$vo['bm_zw']?></td>
+        <td class=x24><?=$vo['bg_dh']?></td>
+        <td class=x24><?=$vo['mobile']?></td>
+        <td class=x24><?=$vo['email']?></td>
     </tr>
+    <?php endforeach;?>
+    <?php else:;?>
+    <?php for($i =0; $i<=5; $i++):?>
     <tr height=24 style='mso-height-source:userset;height:18pt' id='r4'>
         <td height=24 class=x23 style='height:18pt;' ></td>
         <td class=x24></td>
@@ -680,45 +685,19 @@
         <td class=x24></td>
         <td class=x24></td>
     </tr>
-    <tr height=24 style='mso-height-source:userset;height:18pt' id='r5'>
-        <td height=24 class=x23 style='height:18pt;' ></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-    </tr>
-    <tr height=24 style='mso-height-source:userset;height:18pt' id='r6'>
-        <td height=24 class=x23 style='height:18pt;' ></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-    </tr>
-    <tr height=24 style='mso-height-source:userset;height:18pt' id='r7'>
-        <td height=24 class=x23 style='height:18pt;' ></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-    </tr>
-    <tr height=24 style='mso-height-source:userset;height:18pt' id='r8'>
-        <td height=24 class=x23 style='height:18pt;' ></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-        <td class=x24></td>
-    </tr>
+    <?php endfor;?>
+    <?php endif;?>
     <tr height=24 style='mso-height-source:userset;height:18pt' id='r9'>
         <td colspan=2 id='tc4' height=24 class=x31 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;height:18pt;' >住宿预定</td>
-        <td colspan=4 id='tc5' class=x32 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' >□合住<span style='mso-spacerun:yes'>&nbsp;&nbsp; </span>□包房</td>
+        <?php if(isset($table['master']) ):?>
+            <td colspan=4 id='tc5' class=x32 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ><?=$table['master']['zs_yd'] == '1' ? '√' : '□'?>合住<span style='mso-spacerun:yes'>&nbsp;&nbsp; </span><?=$table['master']['zs_yd'] == '0' ? '√' : '□'?> 包房</td>
+        <?php else:;?>
+            <td colspan=4 id='tc5' class=x32 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' >□合住<span style='mso-spacerun:yes'>&nbsp;&nbsp; </span>□包房</td>
+        <?php endif;?>
     </tr>
     <tr height=24 style='mso-height-source:userset;height:18pt' id='r10'>
         <td colspan=2 id='tc6' height=24 class=x31 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;height:18pt;' >备注说明</td>
-        <td colspan=4 id='tc7' class=x32 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ></td>
+        <td colspan=4 id='tc7' class=x32 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ><?=isset($table['master']) ? $table['master']['bz_sm'] : ''?></td>
     </tr>
     <![if supportMisalignedColumns]>
     <tr height=0 style='display:none'>

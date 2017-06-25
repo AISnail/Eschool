@@ -889,13 +889,13 @@
     <col width=100 span=10 style='width:75pt'>
     <tr height=25 style='mso-height-source:userset;height:19pt' id='r0'>
         <td colspan=2 id='tc0' height=25 class=x41 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;height:19pt;' >单位名称</td>
-        <td colspan=8 id='tc1' class=x42 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ></td>
+        <td colspan=8 id='tc1' class=x42 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ><?php echo isset($table['master']['dw_name']) ?$table['master']['dw_name'] :'' ?></td>
     </tr>
     <tr height=49 style='mso-height-source:userset;height:37pt' id='r1'>
         <td colspan=2 id='tc2' height=49 class=x41 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;height:37pt;' >通讯地址</td>
-        <td colspan=3 id='tc3' class=x42 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ></td>
+        <td colspan=3 id='tc3' class=x42 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ><?php echo  isset($table['master']['tx_address']) ?$table['master']['tx_address']: '' ?></td>
         <td class=x21>联系人及电话</td>
-        <td colspan=4 id='tc4' class=x42 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ></td>
+        <td colspan=4 id='tc4' class=x42 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' ><?php echo  isset($table['master']['lx_mobile']) ?$table['master']['lx_mobile']: '' ?></td>
     </tr>
     <tr height=24 style='mso-height-source:userset;height:18pt' id='r2'>
         <td rowspan=2 height=49 class=x43 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;height:37pt;' >姓名</td>
@@ -914,18 +914,23 @@
         <td class=x23>单住</td>
         <td class=x23>合住</td>
     </tr>
-    <tr height=25 style='mso-height-source:userset;height:19pt' id='r4'>
-        <td height=25 class=x25 style='height:19pt;' ></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x23></td>
-        <td class=x23></td>
-    </tr>
+    <?php if( !empty( $table['slave'] ) && isset($table['slave']) ):?>
+    <?php foreach($table['slave'] as $vo):?>
+        <tr height=25 style='mso-height-source:userset;height:19pt' id='r4'>
+            <td height=25 class=x25 style='height:19pt;' ><?=$vo['name']?></td>
+            <td class=x26><?=$vo['sex']?></td>
+            <td class=x26><?=$vo['branch']?></td>
+            <td class=x26><?=$vo['duty']?></td>
+            <td class=x26><?=$vo['mobile']?></td>
+            <td class=x26><?=$vo['email']?></td>
+            <td class=x26><?=$vo['is_zhu'] == '1' ? '✔' : '' ?></td>
+            <td class=x26><?=$vo['is_zhu'] == '0' ? '✔' : '' ?></td>
+            <td class=x23><?=$vo['fx_zhu'] == '1' ? '✔' : ''?></td>
+            <td class=x23><?=$vo['fx_zhu'] == '0' ? '✔' : ''?></td>
+        </tr>
+    <?php endforeach;?>
+    <?php else:;?>
+    <?php for($i=0; $i<5;$i++):?>
     <tr height=25 style='mso-height-source:userset;height:19pt' id='r5'>
         <td height=25 class=x25 style='height:19pt;' ></td>
         <td class=x26></td>
@@ -938,30 +943,8 @@
         <td class=x26></td>
         <td class=x26></td>
     </tr>
-    <tr height=25 style='mso-height-source:userset;height:19pt' id='r6'>
-        <td height=25 class=x25 style='height:19pt;' ></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-    </tr>
-    <tr height=25 style='mso-height-source:userset;height:19pt' id='r7'>
-        <td height=25 class=x25 style='height:19pt;' ></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-        <td class=x26></td>
-    </tr>
+    <?php endfor;?>
+    <?php endif;?>
     <tr height=24 style='mso-height-source:userset;height:18pt' id='r8'>
         <td colspan=2 id='tc7' height=24 class=x43 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;height:18pt;' >备注说明</td>
         <td colspan=8 id='tc8' class=x44 style='border-right:2px solid windowtext;border-bottom:2px solid windowtext;' >若因报名人数较多，无法满足每位老师的住宿要求，请您服从安排，谢谢！</td>

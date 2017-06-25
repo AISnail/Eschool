@@ -49,7 +49,7 @@
 if( empty($apply_name) ){
 echo "<a href='/#//apply/assoc?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>点击关联报名表</a>";
 }else{
-echo "<button onclick=\"window.location.href='#/apply/index?increment_id=".$vo['increment_id']."&apply_id=".$vo['apply_id']."';return false; \"class='layui-btn layui-btn-small' data-title=".$apply_name."><i class='fa fa-calendar'></i>".$apply_name."</button>";
+echo "<button onclick=\"window.location.href='#/apply/index?increment_id=".$vo['increment_id']."&apply_type=".$vo['apply_type']."';return false; \"class='layui-btn layui-btn-small' data-title=".$apply_name."><i class='fa fa-calendar'></i>".$apply_name."</button>";
 }
 ?></td>
             <td class='text-center'>{$vo.organ}</td>

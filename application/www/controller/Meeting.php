@@ -2,10 +2,13 @@
 namespace app\www\controller;
 
 
+use think\Db;
 use think\Request;
-
+use model\Meeting as MeetingModel;
 class meeting extends base
 {
+    public $user_table = 'SystemUser';
+
     /**
      * 显示资源列表
      *
@@ -13,26 +16,24 @@ class meeting extends base
      */
     public function index(Request $request)
     {
-        /* --------------- 机构 --------------- */
-        $organ_array = [
-            ['id' => 1, 'name'=>'中国高等教育学会'],
-            ['id' => 2, 'name'=>'中国高等教育学会分支机构'],
-            ['id' => 3, 'name'=>'超神机构'],
-            ['id' => 4, 'name'=>'0牛逼机构'],
-            ['id' => 5, 'name'=>'1牛逼机构'],
-            ['id' => 6, 'name'=>'2牛逼机构']
-        ];
-
+        /* --------------- 机构 --------------- */      // 实例Query对象
+        $organ_array = Db::name($this->user_table)
+                        ->where('is_deleted', '0')
+                        ->select();
         $old_array    = $organ_array;
         $hidden_organ = array_splice($organ_array,2);
         $organ_id     = $request->param('organ',1);
         $a_key        = array_search($organ_id, array_column($old_array, 'id'));
-        $organ_title  = $old_array[$a_key ?? 0]['name'];
+        $organ_title  = $old_array[$a_key ?? 0]['organ'];
 
         /* --------------- 会议 --------------- */
-
-
-        return $this->fetch('index',compact('organ_title','organ_array','old_array','hidden_organ','organ_id'));
+        $meeting_info  = MeetingModel::where(['o_id' => $organ_id])
+                        ->paginate(5);
+        $page = $meeting_info->render()  ;
+        return $this->fetch('index',compact(
+            'organ_title','meeting_info','organ_array',
+            'old_array','hidden_organ','organ_id','page')
+        );
     }
 
 

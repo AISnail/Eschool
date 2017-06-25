@@ -27,7 +27,7 @@ class Order extends BasicAdmin
         $list = new OrderModel();
         $list->alias('main')
                 ->field(['main.id','main.status','main.pay_way','main.create_time','main.increment_id',
-                         'u.name','SUM(main.pay_money) as pay_money','a.id as apply_id',
+                         'u.name','SUM(main.pay_money) as pay_money','a.id as apply_id','a.apply_type',
                          'm.m_topic','a.apply_name','m.end_time','m.apply_time','m.m_status',
                          'u.mobile','su.organ'])
                 ->join([
