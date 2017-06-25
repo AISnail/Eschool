@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>中国高等教育学会-个人信息</title>
+    <link rel="stylesheet" href="/static/css/base.css"/>
+    <link rel="stylesheet" href="/static/css/style-min.css"/>
+    <script src="/static/js/jquery-1.7.2.min.js"></script>
+    <style>
+        .txt_name{width: 20%;}
+        .basic1 .tab_info tr td .txt{width:50%;}
+        .list li:hover{cursor: text;background-color: transparent;}
+        .list li>form{display: inline-block;}
+        .aside ul li{padding-left: 40px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="top_bg">
+            <div class="top"></div>
+        </div>
+        <div class="nav_bg">
+            <div class="nav">
+                <ul class="nav_item">
+                    <li class="left"><a href="http://hie.eol.com.cn">网站首页</a><span>|</span></li>
+                    <li class="left"><a href="conference.html">会议报名</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 主体-->
+        <div class="main">
+            <div class="main_top">
+                <div class="top_left left">
+                    <img src="/static/imgs/position.png" alt=""/>
+                    <span>
+                        当前位置：<a href="http://hie.eol.com.cn">首页</a>＞
+                        <a href="basicInfo.html">个人中心</a>＞
+                        <i class="basic1 curr">基本信息</i>
+                        <i class="complete1 display-none">完善信息</i>
+                        <i class="download1 display-none">课件下载</i>
+                        <i class="order1 display-none">我的订单</i>
+                        <i class="prem1 display-none">我的退费记录</i>
+                        <i class="news1 display-none">我的消息</i>
+                    </span>
+                </div>
+                {notempty name="userInfo"}
+                    <ul class="top_right right">
+                        <li>欢迎登录</li>
+                        <li>
+                            <a class="userName">
+                                {$userInfo.username}
+                            </a>
+                            <span>|</span>
+                        </li>
+                        <li>
+                            <a href="#">个人中心</a>
+                            <span>|</span>
+                        </li>
+                        <li>
+                            <a href="{:url('/www/personal/loginout')}">退出</a>
+                        </li>
+                    </ul>
+                {/notempty}
+            </div>
+            <div class="center">
+                <div class="aside left">
+                    <ul>
+                        <li class="basic curr">
+                            <img class="img-w" src="/static/imgs/icon1-w.png" alt=""/>
+                            <img class="img display-none" src="/static/imgs/icon1.png" alt=""/>
+                            <span>基本信息</span>
+                            <s></s>
+                        </li>
+                        <li class="complete">
+                            <img class="img" src="/static/imgs/icon2.png" alt=""/>
+                            <img class="img-w display-none" src="/static/imgs/icon2-w.png" alt=""/>
+                            <span>完善信息</span>
+                            <s></s>
+                        </li>
+                        <li class="download">
+                            <img class="img" src="/static/imgs/icon3.png" alt=""/>
+                            <img class="img-w display-none" src="/static/imgs/icon3-w.png" alt=""/>
+                            <span>课件下载</span>
+                            <s></s>
+                        </li>
+                        <li class="order">
+                            <img class="img" src="/static/imgs/icon4.png" alt=""/>
+                            <img class="img-w display-none" src="/static/imgs/icon4-w.png" alt=""/>
+                            <span>我的订单</span>
+                            <s></s>
+                        </li>
+                        <li class="prem">
+                            <img class="img" src="/static/imgs/icon5.png" alt=""/>
+                            <img class="img-w display-none" src="/static/imgs/icon5-w.png" alt=""/>
+                            <span>我的退费记录</span>
+                            <s></s>
+                        </li>
+                        <li class="news">
+                            <img class="img" src="/static/imgs/icon6.png" alt=""/>
+                            <img class="img-w display-none" src="/static/imgs/icon6-w.png" alt=""/>
+                            <span>我的消息</span>
+                            <s></s>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cont">
+                    <h3 class="basic1">基本信息</h3>
+                    <h3 class="complete1 display-none">完善信息</h3>
+                    <h3 class="download1 display-none">课件下载</h3>
+                    <h3 class="order1 display-none">我的订单</h3>
+                    <h3 class="prem1 display-none">我的退费记录</h3>
+                    <div id="basic" class="basic1">
+                        <table class="tab_info">
+                            <tr>
+                                <td class="txt_name">用户名：</td>
+                                <td><input class="txt" id="username" type="text" readonly="readonly" value="{$userInfo.username}" /></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>登录名：</td>
+                                <td><input class="txt" id="loginname" type="text" {if condition="$userInfo.loginname neq ''"}readonly="readonly"{/if} value="{$userInfo.loginname}" /><span>&nbsp;可用于登录，请牢记哦！</span></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">昵&nbsp;&nbsp;&nbsp;称：</td>
+                                <td><input class="txt" id="nick" type="text" {if condition="$userInfo.nick neq ''"}readonly="readonly"{/if}  value="{$userInfo.nick}" /><span>&nbsp;<a href="javascript:edit(this,'nick')" class="did">修改</a></span></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>密&nbsp;&nbsp;&nbsp;码：</td>
+                                <td><input class="txt" id="password" type="password" readonly="readonly" value="{$userInfo.password}" /><!--<span>&nbsp;<a href="javascript:edit(this,'password')" class="did">修改</a></span>--></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">邮&nbsp;&nbsp;&nbsp;箱：</td>
+                                <td><span class="blue">{if condition="$userInfo.mobileverify eq 1"}已验证{else}<a href="javascript:verirfyEmail({$userInfo.id})" class="did">立即验证</a>{/if}</span></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">手&nbsp;&nbsp;&nbsp;机：</td>
+                                <td><span>{if condition="$userInfo.mobileverify eq 1"}已验证{else}未验证{/if}</span></td>
+                            </tr>
+                            <tr class="btn">
+                                <td class="last" colspan="2"><input class="btn1" onclick="submit(1,{$userInfo.id})" type="button" value="保存"/></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="complete" class="complete1 info display-none">
+                        <table class="tab_info">
+                            <tr>
+                                <td class="txt_name"><em>*</em>姓&nbsp;&nbsp;&nbsp;名：</td>
+                                <td><input class="txt" id="name" type="text" value="{$userInfo.name}" /></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>性&nbsp;&nbsp;&nbsp;别：</td>
+                                <td>
+                                    <input type="radio" name="sex" value="1" {if condition="$userInfo.sex eq 1"}checked="checked"{/if}/><span class="raopt">男</span>
+                                    <input type="radio" name="sex" value="2" {if condition="$userInfo.sex eq 2"}checked="checked"{/if}/><span class="raopt">女</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>民&nbsp;&nbsp;&nbsp;族：</td>
+                                <td>
+                                    <input class="txt" id="family" type="text" value="{$userInfo.family}" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">职务或职称：</td>
+                                <td>
+                                    <input class="txt" id="title" value="{$userInfo.title}"  type="text"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">研究方向：</td>
+                                <td><input class="txt" id="direction" value="{$userInfo.direction}" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>所在单位：</td>
+                                <td><input class="txt" id="company" value="{$userInfo.company}" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>电&nbsp;&nbsp;&nbsp;话：</td>
+                                <td><input class="txt" id="mobile" value="{$userInfo.mobile}" readonly="readonly" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">E-mail：</td>
+                                <td><input class="txt" id="email" value="{$userInfo.email}" readonly="readonly" type="email"/></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">邮&nbsp;&nbsp;&nbsp;编：</td>
+                                <td><input class="txt" id="zipcode" value="{$userInfo.zipcode}" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">学会理事：</td>
+                                <td><input class="txt" id="director" value="{$userInfo.director}" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name">地&nbsp;&nbsp;&nbsp;址：</td>
+                                <td><input class="txt" id="address" value="{$userInfo.address}" type="text"/></td>
+                            </tr>
+                            <tr class="btn">
+                                <td colspan="2" class="last">
+                                    <input class="btn1" type="button" onclick="submit(2,{$userInfo.id})" value="保存"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="download" class="download1 display-none">
+                        <p class="doc">
+                            <span>全部文档</span>
+                            <span class="upload">上传日期</span>
+                        </p>
+                        <ul class="list">
+                            <li>
+                                <img src="imgs/icon_wd.png" alt=""/>
+                                <span class="title">2016年高等教育学会得通知</span>
+                                <input class="btn" type="button" value="下载"/>
+                                <span class="date">2017-04-20</span>
+                            </li>
+                            <li>
+                                <img src="imgs/icon_wd.png" alt=""/>
+                                <span class="title">2016年高等教育学会得通知</span>
+                                <input class="btn" type="button" value="下载"/>
+                                <span class="date">2017-04-20</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="order1 display-none">
+                        <p class="order_item">
+                            <span>全部订单</span>
+                            <span>三个月内订单</span>
+                            <span>一年内订单</span>
+                        </p>
+                        {foreach name="order" item="vo"}
+                        <div class="order_detail border">
+                            <p>
+                                <span>2017-04-20</span>
+                                <span>中国高等教育学会</span>
+                                <span>订单编号：<a>{$vo.increment_id}</a></span>
+                                <span class="state">{if condition="$vo.is_check eq 1"}待参与{else}已参与{/if}</span>
+                            </p>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>会议</th>
+                                    <th>单价</th>
+                                    <th>数量</th>
+                                    <th>操作</th>
+                                    <th>实付款</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="huiyi">
+                                        <span><b>{$vo.m_topic}</b></span><br/>
+                                        <span class="dark"><b>会议时间</b>：{$vo.start_time}</span><br/>
+                                        <span class="dark"><b>会议地点：</b>北京海淀大酒店</span>
+                                    </td>
+                                    <td>
+                                        ￥<span>{$vo.order_money}</span>
+                                    </td>
+                                    <td>
+                                        ×<span>{$vo.count}</span>
+                                    </td>
+                                    <td>
+                                        <a class="scan scan_detail">查看详情</a><br/>
+                                        <a class="down" href="#">下载电子凭证</a>
+                                    </td>
+                                    <td>
+                                        <b>￥<span>{$vo.pay_money}</span></b>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        {/foreach}
+                    </div>
+                    <div class="prem1 display-none">
+                        <div class="order_detail">
+                            <table class="border">
+                                <thead>
+                                <tr>
+                                    <th>订单编号</th>
+                                    <th>会议名称</th>
+                                    <th>提交时间</th>
+                                    <th>支付明细</th>
+                                    <th>退款状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>1234567</td>
+                                    <td>2017年高等教育学会论坛</td>
+                                    <td>2017-05-16 10:42</td>
+                                    <td class="sum">
+                                        订单支付金额：￥<span>1600.00</span>
+                                        在线支付：￥<span>1600.00</span>
+                                    </td>
+                                    <td>退款处理</td>
+                                    <td><a class="scan">查看</a></td>
+                                </tr>
+                                <tr>
+                                    <td>1234567</td>
+                                    <td>2017年高等教育学会论坛</td>
+                                    <td>2017-05-16 10:42</td>
+                                    <td class="sum">
+                                        订单支付金额：￥<span>1600.00</span>
+                                        在线支付：￥<span>1600.00</span>
+                                    </td>
+                                    <td>退款处理</td>
+                                    <td><a class="scan">查看</a></td>
+                                </tr>
+                                <tr>
+                                    <td>1234567</td>
+                                    <td>2017年高等教育学会论坛</td>
+                                    <td>2017-05-16 10:42</td>
+                                    <td class="sum">
+                                        订单支付金额：￥<span>1600.00</span>
+                                        在线支付：￥<span>1600.00</span>
+                                    </td>
+                                    <td>退款处理</td>
+                                    <td><a class="scan">查看</a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="addrto" class="news1 info display-none">
+                        <table class="tab_info">
+                            <tr>
+                                <td class="txt_name"><em>*</em>单位名称：</td>
+                                <td><input class="txt" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>纳税人识别码：</td>
+                                <td><input class="txt" type="text"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="last">
+                                    <input class="btn1" type="button" value="保存"/>
+                                    <input class="btn2" type="button" value="取消"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">
+                                    <h3 class="fpaddr">发票收货地址填写</h3>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>收件人姓名：</td>
+                                <td><input class="txt" type="text"/></td></tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>收票人手机：</td>
+                                <td><input class="txt" type="text"/></td></tr>
+                            <tr>
+                                <td class="txt_name"><em>*</em>收票人地址：</td>
+                                <td><input class="txt" type="text"/></td></tr>
+                            <tr>
+                                <td colspan="2"class="last">
+                                    <input class="btn1" type="button" value="保存"/>
+                                    <input class="btn2" type="button" value="取消"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="footer">
+                <div class="line_24">
+                    <p><a href="http://hie.eol.com.cn/overview_12570/20150121/t20150121_993152.shtml">联系我们</a>｜相关链接：<a href="http://www.moe.edu.cn">中华人民共和国教育部</a></p>
+                    <p>学会地址：北京市海淀区文慧园北路10号中教仪楼4层</p>
+                    <p>联系电话：010-59893295　010-59893297　京ICP备10021028号</p>
+                    <p>技术支持：<a href="http://www.eol.cn/">中国教育在线</a></p>
+                </div>
+                <div class="img_wx"><p align="center"><img src="imgs/wx.jpg" width="72" height="72" /></p>
+                    <p align="center">官方微信</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cover display-none"></div>
+    <div class="invoice_info pop display-none">
+        <p>
+            <span>电子票（共一张）</span>
+            <span class="close">X</span>
+        </p>
+        <div class="cover_cont">
+            <div class="cont_left">
+                <img src="imgs/code_d.png" alt=""/>
+                <span>123456789123</span>
+            </div>
+            <div class="cont_right">
+                <h3>2016年高等教育学会论坛的通知（做手机截图提醒，短信通知）</h3>
+                <b>单位名称：中国高等教育学会（开票抬头）</b>
+                <b>姓名：张三</b>
+                <b>2017年5月18日 17:00签到</b>
+                <b>地点：南京市红林大酒店</b>
+            </div>
+        </div>
+        <div class="last-same">
+            <input class="btn1" type="button" value="下载电子票"/>
+            <input class="close btn3" type="button" value="取消"/>
+        </div>
+    </div>
+    <div class="my_detail pop display-none">
+        <p>
+            <span>订单详情</span>
+            <span class="close">X</span>
+        </p>
+        <div class="cover_cont">
+            <b>我的订单</b>
+            <div class="cover_order">
+                <p><a href="#">订单状态>></a></p>
+                <div class="order_info">
+                    当前状态：<span class="red">待参与</span>
+                    订单编号:<span>7383738390087</span>
+                    创建时间：<span>2017-05-30 17:03</span>
+                </div>
+            </div>
+            <div class="cover_order">
+                <p><a href="#">会议信息>></a></p>
+                <div class="order_info">
+                    当前状态：<span class="red">待参与</span>
+                    订单编号:<span>7383738390087</span>
+                    创建时间：<span>2017-05-30 17:03</span>
+                </div>
+            </div>
+            <div class="cover_order">
+                <p><a href="#">报名详情>></a></p>
+                <div class="order_info">
+                    <table>
+                        <thead>
+                        <tr>
+                            <td>序号</td>
+                            <td>凭证信息</td>
+                            <td>报名人</td>
+                            <td>手机</td>
+                            <td>订单状态</td>
+                            <td>操作</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1234567</td>
+                            <td><img src="imgs/code_d.png" alt=""/></td>
+                            <td>张蓝心</td>
+                            <td>13902837893</td>
+                            <td>待参与</td>
+                            <td>
+                                <input type="button" value="下载电子票"/><br/>
+                                <a class="#">申请退款</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1234567</td>
+                            <td><img src="imgs/code_d.png" alt=""/></td>
+                            <td>张蓝心</td>
+                            <td>13902837893</td>
+                            <td>待参与</td>
+                            <td>
+                                <input type="button" value="下载电子票"/><br/>
+                                <a class="#">申请退款</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1234567</td>
+                            <td><img src="imgs/code_d.png" alt=""/></td>
+                            <td>张蓝心</td>
+                            <td>13902837893</td>
+                            <td>待参与</td>
+                            <td>
+                                <input type="button" value="下载电子票"/><br/>
+                                <a class="#">申请退款</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>1234567</td>
+                            <td><img src="imgs/code_d.png" alt=""/></td>
+                            <td>张蓝心</td>
+                            <td>13902837893</td>
+                            <td>待参与</td>
+                            <td>
+                                <input type="button" value="下载电子票"/><br/>
+                                <a class="#">申请退款</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="order_total">
+                总价：<i>￥1600.00</i>
+                订单实付金额：<span class="red">￥1400.00</span>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script>
+    $(function(){
+        $(".aside>ul>li").on('mouseover', function(event) {
+            $(".img").removeClass('display-none');
+            $(".img",this).addClass('display-none');
+            $(".img-w").addClass('display-none');
+            $(".img-w",this).removeClass('display-none');
+            $(".aside>ul>li.curr>.img-w").removeClass("display-none");
+            $(".aside>ul>li.curr>.img").addClass("display-none");
+
+            $(".aside>ul>li").on('mouseout', function(event) {
+                $(".img",this).removeClass('display-none');
+                $(".img-w").addClass('display-none');
+                $(".aside>ul>li.curr>.img-w").removeClass("display-none");
+                $(".aside>ul>li.curr>.img").addClass("display-none");
+            });
+        });
+
+
+        $(".aside>ul>li").click(function(){
+            $(this).siblings().removeClass("curr");
+            $(this).addClass("curr");
+
+            $(".aside>ul>li>.img").removeClass("display-none");
+            $(".aside>ul>li>.img-w").addClass("display-none");
+            $(".aside>ul>li>.img-w",this).removeClass("display-none");
+
+//            $(".aside>ul>li").on('mouseover', function(event) {
+//                $(".img").removeClass('display-none');
+//                $(".img",this).addClass('display-none');
+//                $(".img-w").addClass('display-none');
+//                $(".img-w",this).removeClass('display-none');
+//
+//                $(".aside>ul>li").on('mouseout', function(event) {
+//                    $(".img",this).removeClass('display-none');
+//                    $(".img-w").addClass('display-none');
+//                    $(".aside>ul>li.curr>.img-w").removeClass("display-none");
+//                    $(".aside>ul>li.curr>.img").addClass("display-none");
+//                });
+//            });
+
+            var c=$(this).attr("class").split(" ")[0];
+            var cs= $("."+c+"1");
+            cs.siblings("i").addClass("display-none");
+            cs.siblings("h3").addClass("display-none");
+            cs.siblings("div").addClass("display-none");
+            cs.removeClass("display-none");
+        });
+
+        $(".down").click(function(){
+            $(".cover").removeClass("display-none");
+            $(".invoice_info").removeClass("display-none");
+            $(".close").click(function(){
+                $(".cover").addClass("display-none");
+                $(".invoice_info").addClass("display-none");
+            });
+        })
+        $(".scan_detail").click(function(){
+            $(".cover").removeClass("display-none");
+            $(".my_detail").removeClass("display-none");
+            $(".close").click(function(){
+                $(".cover").addClass("display-none");
+                $(".my_detail").addClass("display-none");
+            });
+        })
+    })
+</script>
+
+<script type="text/javascript" src="/static/layer/layer.js"></script>
+<script>
+    function edit(self,obj)
+    {
+        $("#"+obj).removeAttr("readonly");
+        $(self).attr('self-href',$(self).attr("href"));
+        $(self).removeAttr("href");
+    }
+
+    function submit(ident,userid)
+    {
+        var url = "{:url('/www/personal/index')}";
+        switch(ident)
+        {
+            case 1:
+                var data = {
+                    ident:1,
+                    userid:userid,
+                    username:$("#username").val(),
+                    loginname:$("#loginname").val(),
+                    nick:$("#nick").val()
+                };
+                break;
+            case 2:
+                var data = {
+                    ident:2,
+                    userid:userid,
+                    name:$("#name").val(),
+                    sex:$("input[name='sex']:checked").val(),
+                    family:$("#family").val(),
+                    title:$("#title").val(),
+                    direction:$("#direction").val(),
+                    company:$("#company").val(),
+                    director:$("#director").val(),
+                    zipcode:$("#zipcode").val(),
+                    address:$("#address").val(),
+                };
+                break;
+            default:
+                //n 与 case 1 和 case 2 不同时执行的代码
+        }
+        $.post(url,data,function(q){
+            layer.alert("修改成功");
+        },"json");
+    }
+</script>
