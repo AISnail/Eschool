@@ -6,6 +6,8 @@ use app\www\helper\StaticInit;
 use think\Controller;
 use think\Request;
 
+use app\www\model\User;
+
 /**
  * base
  * @author    ShaoWei Pu <pushaowei0727@gmail.com>
@@ -19,6 +21,8 @@ class base extends Controller
     public $mid;
     public $organ;
 
+    public $userId = "";
+
     /**
      * 前置操作
      * @param \think\Request $request
@@ -27,6 +31,18 @@ class base extends Controller
     {
         // 初始化前置操作
         parent::_initialize();
+
+        if(isset($_COOKIE['userId'])) {
+            $this->userId = $_COOKIE['userId'];
+        }
+
+        if(empty($this->userId)){
+            echo "<script>alert('未登录！');</script>";
+        } else {
+            $userInfo = User::get($this->userId);
+            $this->assign("userInfo",$userInfo);
+        }
+
         $_request = Request::instance();
         $page     = strtolower($_request->controller().'.'.$_request->action() );
         $this->mid      = $_request->param('mid',1);

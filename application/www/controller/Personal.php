@@ -18,22 +18,11 @@ use app\www\model\User;
 
 class Personal extends base
 {
-    public $userId = "";
     public function _initialize()
     {
         // 初始化前置操作
         parent::_initialize();
 
-        if(isset($_COOKIE['userId'])) {
-            $this->userId = $_COOKIE['userId'];
-        }
-
-        if(empty($this->userId)){
-            exit("未登录");
-        } else {
-            $userInfo = User::get($this->userId);
-            $this->assign("userInfo",$userInfo);
-        }
     }
 
     public function index(Request $request)
