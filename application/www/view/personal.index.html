@@ -33,37 +33,7 @@
         <!-- 主体-->
         <div class="main">
             <div class="main_top">
-                <div class="top_left left">
-                    <img src="/static/imgs/position.png" alt=""/>
-                    <span>
-                        当前位置：<a href="http://hie.eol.com.cn">首页</a>＞
-                        <a href="basicInfo.html">个人中心</a>＞
-                        <i class="basic1 curr">基本信息</i>
-                        <i class="complete1 display-none">完善信息</i>
-                        <i class="download1 display-none">课件下载</i>
-                        <i class="order1 display-none">我的订单</i>
-                        <i class="prem1 display-none">我的退费记录</i>
-                        <i class="news1 display-none">我的消息</i>
-                    </span>
-                </div>
-                {notempty name="userInfo"}
-                    <ul class="top_right right">
-                        <li>欢迎登录</li>
-                        <li>
-                            <a class="userName">
-                                {$userInfo.username}
-                            </a>
-                            <span>|</span>
-                        </li>
-                        <li>
-                            <a href="#">个人中心</a>
-                            <span>|</span>
-                        </li>
-                        <li>
-                            <a href="{:url('/www/personal/loginout')}">退出</a>
-                        </li>
-                    </ul>
-                {/notempty}
+                {include file="common/icenter"}
             </div>
             <div class="center">
                 <div class="aside left">
