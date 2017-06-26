@@ -4,27 +4,27 @@
         <span>
         当前位置：<a href="http://hie.eol.com.cn">中国高等教育学会</a>＞
             <a href="/meeting/index.html">会议报名</a>＞
-            <i class="curr"><?=$organ_title ?? '';?></i>
+            <i class="curr"></i>
         </span>
         <!--<input class="search" type="search" placeholder="搜索您感兴趣得会议"/>-->
         <!--<img class="btn_search" src="<?=__STATIC__?>imgs/search.png" alt=""/>-->
     </div>
-    <?php if(true):?>
+    {notempty name="userInfo"}
     <ul class="top_right right">
         <li>欢迎登录</li>
         <li>
             <a class="userName">
-                你好j34w
+                {$userInfo.username}
             </a>
             <span>|</span>
         </li>
         <li>
-            <a href="basicInfo.html">个人中心</a>
+            <a href="{:url('/www/personal/index')}">个人中心</a>
             <span>|</span>
         </li>
         <li>
-            <a href="#">退出</a>
+            <a href="{:url('/www/personal/loginout')}">退出</a>
         </li>
     </ul>
-    <?php endif;?>
+    {/notempty}
 </div>
