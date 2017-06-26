@@ -1,0 +1,82 @@
+{extend name='extra@admin/content'}
+
+{block name='content'}
+
+<!--右侧编辑区 开始-->
+<div class="panel panel-default ">
+    <div class="panel-body">
+        <form class="form-horizontal" role="form" name="notice" onsubmit="return false;" >
+            <input type="hidden" name="id" value="{$vo.id|default=''}">
+            <input type="hidden" name="m_id" value="{$m_id}">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <textarea name='n_content'>{$vo.n_content|default=''}</textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class=" col-md-12">
+                        <button data-submit type="button" class="layui-btn">保存通知</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!--右侧编辑区 结束-->
+
+{/block}
+
+
+{block name='script'}
+<script>
+    $(function () {
+        require(['ueditor'], function () {
+            /*! 实例富文本编辑器  */
+            var editor, $item;
+
+            /*! 默认编辑第一篇图文 */
+            editor = window.createEditor('[name="n_content"]', 'basic');
+
+            /*! 编辑器初始化成功 */
+            editor.ready(function () {
+
+                var $form = $('form[name="notice"]'), $body = $('body');
+
+                $form.validate();
+
+                /*! 数据提交 */
+                $form.find('button[data-submit]').on('click', function () {
+                    $form.submit();
+                    if (!syncEditor()) {
+                        return false;
+                    }
+                    $.form.load('__SELF__', {data: $item}, "post");
+                });
+
+                /*! 同步编辑器 */
+                function syncEditor() {
+                    // 处理上一个编辑器
+                    if ($form) {
+                        var data = {};
+                        data.id = $form.find('[name=id]').val();
+                        data.m_id = $form.find('[name=m_id]').val();
+                        data.n_content = editor.getContent() || '';
+                        $form.submit();
+                        if (data.n_content.length < 1) {
+                            editor.setContent('通知内容不能留空，请输入内容！');
+                            return false;
+                        }
+                        if( $form.find('input.validate-error').size() > 0 ){
+                            return false;
+                        }
+                        $item = data;
+                    }
+                    return true;
+                }
+            });
+        });
+    });
+</script>
+{/block}
+

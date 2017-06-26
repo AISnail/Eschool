@@ -31,6 +31,14 @@ function dd($data, $add = false ,$replace = false, $pathname = NULL) {
 }
 
 /**
+ * @param $o_id
+ * @return mixed
+ */
+function getOrganName($o_id) {
+    return Db::name('SystemUser')->where(['id' => $o_id])->value('organ');
+}
+
+/**
  * 获取微信操作对象
  * @param string $type
  * @return \Wechat\WechatReceive|\Wechat\WechatUser|\Wechat\WechatPay|\Wechat\WechatScript|\Wechat\WechatOauth|\Wechat\WechatMenu
@@ -124,3 +132,5 @@ if (!function_exists("array_column")) {
     }
 
 }
+
+

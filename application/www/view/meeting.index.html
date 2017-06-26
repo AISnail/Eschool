@@ -56,7 +56,7 @@
                         <ul class="list">
                             <?php if(isset($meeting_info) && !empty($meeting_info)):?>
                             <?php foreach($meeting_info as $vo):?>
-                            <li metting_id="<?=$vo['id']?>">
+                            <li metting_id="<?=$vo['id'];?>" organ-id="<?=$vo['o_id']?>" >
                                 <span class="title">
                                     <b><?=$vo['m_topic']?></b><br/>
                                     <span class="dark"><b>主办单位</b>：保健医学分会<b>&nbsp;2017-05-16&nbsp;05:37&nbsp;</b>开始报名</span>
@@ -93,6 +93,7 @@
             <input type="button" value="关闭" class="btn1 close"/>
         </div>
     </div>
+    </div>
 </form>
 {include file='common/footer' /}
 <script>
@@ -102,13 +103,6 @@
             if(_this.attr('organ-id')  ){
                 window.location.href = '/meeting/index/organ/' + _this.attr('organ-id') + '.html';
             }
-//            $(this).siblings().removeClass("curr");
-//            $(this).addClass("curr");
-//            var c = $(this).attr("class").split(" ")[0];
-//            var cs= $("."+c+"1");
-//            cs.siblings("i").addClass("display-none");
-//            cs.siblings("h3").addClass("display-none");
-//            cs.removeClass("display-none");
         })
 
         $(".more").click(function(){
@@ -120,7 +114,7 @@
             });
         })
         $(".list>li").click(function(){
-            window.location = '/meeting/notice/mid/'+$(this).attr('metting_id');
+            window.location = '/meeting/notice/mid/'+$(this).attr('metting_id')+'?o_id='+$(this).attr('organ-id')+'.html';
         })
     })
 </script>

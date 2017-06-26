@@ -70,7 +70,7 @@ trait StaticInit
 
                     ],
                     'script'      => [
-
+                        'js/apply/understand_apply.js',
                     ]
                 ];
                 break;

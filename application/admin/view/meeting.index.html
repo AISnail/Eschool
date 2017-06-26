@@ -29,6 +29,8 @@
         <th class='text-center'>会议主题</th>
         <th class='text-center'>会议编号</th>
         <th class='text-center'>报名表单</th>
+        <th class='text-center'>会议通知</th>
+        <th class='text-center'>会议日程</th>
         <th class='text-center'>开始报名时间</th>
         <th class='text-center'>截止报名时间</th>
         <th class='text-center'>签到时间</th>
@@ -44,15 +46,15 @@
             <td class='text-center'>{$vo.m_topic}</td>
             <td class='text-center'>{$vo.m_code|default="<span style='color:#ccc'>未设置编号</span>"}</td>
             <td class='text-center'>
-                <?php $apply_name = \think\Db::name('EschoolApply')
-                                ->where('m_id', $vo['id'])
-                                ->value('apply_name');
-                if( empty($apply_name) ){
+                <?php
+                if( empty($vo['apply_name']) ){
                      echo "<a href='/#/apply/assoc?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>点击关联报名表</a>";
                 }else{
-                    echo "<a  style='color:#090' href='/#/apply/assoc?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>$apply_name</a>";
+                    echo "<a  style='color:#090' href='/#/apply/assoc?m_id=".$vo['id']."&m_name=".$vo['m_topic']."'>".$vo['apply_name']."</a>";
                 }
                 ?></td>
+            <td class='text-center'><?="<a href='/#/meeting/notice?n_id=".$vo['n_id']."&m_name=".$vo['m_topic']."&m_id=".$vo['id']."'>会议通知</a>";?></td>
+            <td class='text-center'><?="<a href='/#/meeting/schedule?s_id=".$vo['s_id']."&m_name=".$vo['m_topic']."&m_id=".$vo['id']."'>会议日程</a>";?></td>
             <td class='text-center'>{$vo.start_time|date="Y-m-d H:i:s",###}</td>
             <td class='text-center'>{$vo.end_time|date="Y-m-d H:i:s",###}</td>
             <td class='text-center'>{$vo.apply_time|date="Y-m-d H:i:s",###}</td>
@@ -63,11 +65,7 @@
                 <span style="color:#090">使用中</span>
                 {/if}
             </td>
-            <?php $org_name = \think\Db::name('SystemUser')
-                              ->where('id', $vo['o_id'])
-                                ->value('organ');
-            ?>
-            <td class='text-center'><?=$org_name;?></td>
+            <td class='text-center'>{$vo.organ|default=''}</td>
             <td class='text-center'>{$vo.create_time}</td>
             <td class='text-center nowrap'>
                 {if auth("$classuri/edit")}

@@ -1,5 +1,5 @@
 {include file='common/header' /}
-<form  method="post">
+<form  method="post" class="form_submit"  method="POST" enctype="multipart/form-data" onsubmit="return false;">
     <div class="container">
         <div class="top_bg">
             <div class="top"></div>
@@ -26,71 +26,85 @@
                     </ul>
                 </div>
                 <div class="info_input" >
-                    <table class="tab_info">
-                        <tr>
+                    {switch name="$info.apply_type"}
+                         {case value="form_two"}
+                          Form_two
+                        {/case}
+                         {case value="form_three"}
+                          Form_three
+                        {/case}
+                         {default /}
+                          <table class="tab_info">
+                              <tr>
+                                  <td class="txt_name"><em>*</em>单位名称：</td>
+                                  <td><input class="txt" type="text" name="dw_name" required/></td>
+                              </tr>
+                            <tr>
+                            <td class="txt_name"><em>*</em>通讯地址：</td>
+                            <td><input class="txt" type="text" name="tx_address"/></td>
+                            </tr>
+                            <tr>
+                            <td class="txt_name"><em>*</em>联系人及电话：</td>
+                            <td><input class="txt" type="tel" name="lx_mobile"/></td>
+                            </tr>
+                            <tr class="slave">
                             <td class="txt_name"><em>*</em>姓&nbsp;&nbsp;&nbsp;名：</td>
-                            <td><input class="txt" type="text"/></td>
-                        </tr>
-                        <tr>
+                            <td><input class="txt" type="text" name="name"/></td>
+                            </tr>
+                            <tr class="slave">
                             <td class="txt_name"><em>*</em>性&nbsp;&nbsp;&nbsp;别：</td>
                             <td>
-                                <input type="radio" name="sex" value="male" checked="checked"/><span class="raopt">男</span>
-                                <input type="radio" name="sex" value="female"/><span class="raopt">女</span>
+                            <input type="radio" name="sex" value="男" checked="checked"/><span class="raopt">男</span>
+                            <input type="radio" name="sex" value="女"/><span class="raopt">女</span>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="txt_name"><em>*</em>民&nbsp;&nbsp;&nbsp;族：</td>
-                            <td><input class="txt" type="text"/></td>
-                        </tr>
-                        <tr>
-                            <td class="txt_name"><em>*</em>所在单位：</td>
-                            <td><input class="txt" type="text"/></td>
-                        </tr>
-                        <tr>
-                            <td class="txt_name"><em>*</em>手&nbsp;&nbsp;&nbsp;机：</td>
-                            <td><input class="txt" type="tel"/></td>
-                        </tr>
-                        <tr>
-                            <td class="txt_name">电&nbsp;&nbsp;&nbsp;话：</td>
-                            <td><input class="txt" type="text"/></td>
-                        </tr>
-                        <tr>
+                            </tr>
+                            <tr class="slave">
+                            <td class="txt_name"><em>*</em>工作部门：</td>
+                            <td><input class="txt" type="text" name="branch"/></td>
+                            </tr>
+                            <tr class="slave">
+                            <td class="txt_name"><em>*</em>职务职称：</td>
+                            <td><input class="txt" type="text" name="duty"/></td>
+                            </tr>
+                            <tr class="slave">
+                            <td class="txt_name">手机号</td>
+                            <td><input class="txt" type="text" name="mobile"/></td>
+                            </tr>
+                            <tr class="slave">
                             <td class="txt_name">E-mail：</td>
-                            <td><input class="txt" type="text"/></td>
-                        </tr>
-                        <tr>
-                            <td class="txt_name">邮&nbsp;&nbsp;&nbsp;编：</td>
-                            <td><input class="txt" type="email"/></td>
-                        </tr>
-                        <tr>
-                            <td class="txt_name">学会理事：</td>
+                            <td><input class="txt" type="text" name="email"/></td>
+                            </tr>
+                            <tr class="slave">
+                            <td class="txt_name">是否需要安排住宿	：</td>
                             <td>
-                                <input type="radio" name="phone" value="yes" checked="checked"/><span class="raopt">是</span>
-                                <input type="radio" name="phone" value="no"/><span class="raopt">否</span>
+                            <input type="radio" name="is_zhu" value="1" checked="checked"/><span class="raopt">是</span>
+                            <input type="radio" name="is_zhu" value="0"/><span class="raopt">否</span>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="txt_name">地&nbsp;&nbsp;&nbsp;址：</td>
-                            <td><input class="txt" type="text"/></td>
-                        </tr>
-                        <tr>
-                            <td class="txt_name">规定论文题目：</td>
-                            <td><input class="txt" type="text"/></td>
-                        </tr>
-                        <tr>
+                            </tr>
+                            <tr class="slave">
+                            <td class="txt_name">房间要求	：</td>
+                            <td>
+                            <input type="radio" name="fx_zhu" value="1" checked="checked"/><span class="raopt">单住</span>
+                            <input type="radio" name="fx_zhu" value="0"/><span class="raopt">合住</span>
+                            </td>
+                            </tr>
+                          {eq name="$info.update_file" value="1"}
+                                <tr>
                             <td class="txt_name"><em>*</em>上传附件：</td>
                             <td>
                                 <input class="file" type="file"/>
                                 <span>(备注：是否必填可以选择，包括是否启用)</span>
                             </td>
                         </tr>
-                        <tr class="last">
+                          {/eq}
+                              <tr class="last">
                             <td colspan="2">
-                                <input id="submit" class="btn1" type="button" value="提交"/>
+                                <input id="submit" class="btn1" type="submit" value="提交"/>
                                 <input class="btn2" type="reset" value="重置"/>
                             </td>
                         </tr>
                     </table>
+                    {/switch}
                 </div>
             </div>
         </div>
@@ -105,17 +119,10 @@
             <span>请核对报名信息无误</span>
             <div class="area">
                 <span>姓名：张三</span>
-                <span>性别：男</span>
-                <span>姓名：张三</span>
-                <span>性别：男</span>
-                <span>姓名：张三</span>
-                <span>性别：男</span>
-                <span>姓名：张三</span>
-                <span>性别：男</span>
             </div>
-            <div action="#" class="last-same">
-                <input id="sure" class="btn1" type="submit" onclick="location.href=''" value="确认报名"/>
-                <input id="add" class="btn2" type="button" value="添加其他参会人"/>
+            <div class="last-same">
+                <input id="sure" class="btn1"  type="button"  value="确认报名"/>
+                <input id="add"  class="btn2"  type="button"  value="添加其他参会人"/>
             </div>
         </div>
     </div>
@@ -125,57 +132,10 @@
             <span class="close">X</span>
         </p>
         <div class="cover_cont">
-            <table class="tab_info">
-                <tr>
-                    <td class="txt_name"><em>*</em>姓&nbsp;&nbsp;&nbsp;名：</td>
-                    <td><input class="txt" type="text"/></td>
-                </tr>
-                <tr>
-                    <td class="txt_name"><em>*</em>所在单位：</td>
-                    <td><input class="txt" type="text"/></td>
-                </tr>
-                <tr>
-                    <td class="txt_name"><em>*</em>手&nbsp;&nbsp;&nbsp;机：</td>
-                    <td><input class="txt" type="tel"/></td>
-                </tr>
-                <tr>
-                    <td class="txt_name">E-mail：</td>
-                    <td><input class="txt" type="text"/></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="last">
-                        <input id="add_submit" class="btn1" type="button" value="提交"/>
-                        <input class="btn2 close" type="button" value="取消"/>
-                    </td>
-                </tr>
+            <table class="tab_info" id="table_add">
+
             </table>
         </div>
     </div>
 </form>
 {include file='common/footer' /}
-<script>
-    $(function(){
-        $("#submit").click(function(){
-            $(".cover").removeClass("display-none");
-            $(".confirm").removeClass("display-none");
-            $(".close").click(function(){
-                $(".cover").addClass("display-none");
-                $(".cover_detail").addClass("display-none");
-                $(".confirm").addClass("display-none");
-            });
-            $("#add").click(function(){
-                $(".confirm").addClass("display-none");
-                $(".cover_detail").removeClass("display-none");
-                $(".close").click(function(){
-                    $(".cover").addClass("display-none");
-                    $(".cover_detail").addClass("display-none");
-                });
-                $("#add_submit").click(function(){
-                    $(".cover_detail").addClass("display-none");
-                    $(".confirm").removeClass("display-none");
-                })
-            })
-        })
-
-    })
-</script>

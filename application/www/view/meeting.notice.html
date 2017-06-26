@@ -28,12 +28,14 @@
                 <div class="hytz1">
                     <div class="text">
                         <div class="text_title">
-                            <p class="name">“全面提升质量管理水平，全面提高教学综合改革成效”专题报告会报到通知</p>
-                            <p class="num"><span>高学会[2017]24号</span></p>
-                            <p><span>报名时间：2017-05-20 15:00-2017-06-20 18:00 截止报名</span></p>
+                            <span id="NoticeOrgan" class="tname" style="font-family:'宋体';"><?=$info['red_heade']?></span>
+                            <hr style="border-top:1px solid #f00;margin-top:3px;">
+                            <p class="name"><?=$info['m_topic']?></p>
+                            <p class="num"><span><?=$info['m_code']?></span></p>
+                            <p><span>报名时间：<?=date('Y-m-d H:i:s',$info['start_time'])?>-<?=date('Y-m-d H:i:s',$info['end_time']);?> 截止报名</span></p>
                         </div>
                         <div class="text_cont">
-
+                            <?=$info['m_content']?>
                         </div>
                     </div>
                     <form action="#" class="last">
@@ -43,30 +45,23 @@
                 <div class="hyap1 box display-none">
                     <div class="text">
                         <div class="text_title">
-                            <p class="name">“全面提升质量管理水平，全面提高教学综合改革成效”专题报告会报到通知</p>
+                            <p class="name"><?=$info['m_topic'] ?? ''?></p>
                         </div>
                         <div class="text_cont">
                             <table>
                             </table>
-                            <p class="red">(*以会议当天为准)</p>
+                            <p class="red"><?=$info['s_content']?? '(*以会议当天为准)'?></p>
                         </div>
                     </div>
                 </div>
                 <div class="bdtz1 box display-none">
                     <div class="text">
-                        <div class="text_title">
-                            <span class="tname">中国高等教育学会</span>
-                            <p class="name">“全面提升质量管理水平，全面提高教学综合改革成效”<br/>专题报告会报到通知</p>
-                            <p class="num"><span>高学会[2017]24号</span></p>
+                        <div class="text_cont"><?=$info['n_content'] ?? '(*以会议当天为准)'?>
                         </div>
-                        <div class="text_cont">
-                            一、报名时间<br/>
-                            5月18日08:00-16:00<br/>
-                            二、报到地点及联系电话
-                        </div>
-                        <form action="#" class="last">
-                            <input class="btn1" type="button" value="下载通知"/>
-                        </form>
+                        <?php /*
+                        <form action="/meeting/downotice/mid/<?=$mid?>" class="last">
+                            <input class="btn1" type="submit" value="下载通知"/>
+                        </form>*/?>
                     </div>
                 </div>
             </div>

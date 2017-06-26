@@ -4,7 +4,7 @@
         <span>
         当前位置：<a href="http://hie.eol.com.cn">中国高等教育学会</a>＞
             <a href="/meeting/index.html">会议报名</a>＞
-            <i class="curr"><?=$organ_title ?? '';?></i>
+            <i class="curr"><?=$organ_title ?? getOrganName ( (int)request()->get('o_id',10000));?></i>
         </span>
         <!--<input class="search" type="search" placeholder="搜索您感兴趣得会议"/>-->
         <!--<img class="btn_search" src="<?=__STATIC__?>imgs/search.png" alt=""/>-->
